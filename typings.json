@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "d3": "registry:npm/d3#3.0.0+20160723033700"
+  },
+  "globalDependencies": {
+    "codemirror": "registry:dt/codemirror#0.0.0+20160619021621",
+    "dat-gui": "registry:dt/dat-gui#0.5.0+20160317120654",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "lodash": "registry:dt/lodash#0.0.0+20160720001309",
+    "three": "registry:dt/three#0.0.0+20160627210315",
+    "three-orbitcontrols": "registry:dt/three-orbitcontrols#0.0.0+20160704010734"
+  }
+}

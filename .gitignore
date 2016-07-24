@@ -1,0 +1,11 @@
+node_modules/
+typings/
+build/*
+~*.docx
+*.swp
+*.config
+**/.DS_Store
+.settings
+**/.vs
+**/.vscode
+!**/.vscode/tasks.json

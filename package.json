@@ -1,0 +1,42 @@
+{
+  "private": true,
+  "name": "webpack-hello-world",
+  "version": "0.0.1",
+  "description": "Webpack Hello, world!",
+  "main": "lib/index.js",
+  "dependencies": {
+    "codemirror": "^5.16.0",
+    "d3": "^4.1.1",
+    "dat-gui": "^0.5.0",
+    "es6-promise": "^3.1.2",
+    "font-awesome": "^4.6.1",
+    "lodash": "^4.13.1",
+    "lodash-fp": "^0.10.4",
+    "material-design-icons": "^2.2.3",
+    "phosphide": "^0.10.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "json-loader": "^0.5.4",
+    "rimraf": "^2.5.0",
+    "style-loader": "^0.13.0",
+    "ts-loader": "^0.8.2",
+    "typings": "^1.3.2",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.11"
+  },
+  "scripts": {
+    "clean": "rimraf build",
+    "update": "rimraf node_modules/jupyterlab && npm install",
+    "build": "npm run update && npm run build:extension",
+    "build:extension": "webpack --config webpack.config.js",
+    "postinstall": "npm dedupe",
+    "test": "echo 'no tests specified'"
+  },
+  "author": "Christian Fobel",
+  "license": "BSD-3-Clause"
+}
