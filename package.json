@@ -13,7 +13,9 @@
     "lodash": "^4.13.1",
     "lodash-fp": "^0.10.4",
     "material-design-icons": "^2.2.3",
-    "phosphide": "^0.10.0"
+    "orbit-controls": "^1.1.1",
+    "phosphide": "^0.10.0",
+    "three": "^0.79.0"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",

@@ -9,3 +9,5 @@ build/*
 **/.vs
 **/.vscode
 !**/.vscode/tasks.json
+*.js
+*.js.map

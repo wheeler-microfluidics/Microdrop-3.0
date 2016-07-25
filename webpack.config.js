@@ -48,6 +48,7 @@ module.exports = {
   externals: {
     jquery: '$',
     'jquery-ui': '$',
-    dat: 'dat'
+    dat: 'dat',
+    three: 'THREE'
   }
 };

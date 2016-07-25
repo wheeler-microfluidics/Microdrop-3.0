@@ -24,7 +24,8 @@ import * as _ from 'lodash';
 import * as _fp from 'lodash/fp';
 import * as $ from 'jquery';
 
-import { CodeMirrorWidget, DatGuiWidget } from './widgets';
+import { CodeMirrorWidget, DatGuiWidget, ThreeRendererWidget } from './widgets';
+import { ThreePlaneTransformWidget } from './planeTransform';
 import { FooBar } from './content';
 
 import './index.css';
@@ -77,9 +78,13 @@ function main(): void {
   cmSource.loadTarget('./entry.ts');
   cmSource.title.text = 'Source';
 
+  var threeWidget = new ThreePlaneTransformWidget();
+  threeWidget.title.text = 'Three renderer';
+  threeWidget.title.closable = true;
+
   var guiWidget = new DatGuiWidget({autoPlace: false});
   var options = {state: true};
-  guiWidget.gui.add(options, "state");
+  guiWidget.gui.add(threeWidget.orbit, "enableRotate");
   guiWidget.title.text = 'UI options';
   guiWidget.title.closable = true;
 
@@ -87,6 +92,7 @@ function main(): void {
   panel.insertRight(g1, cmSource);
   panel.insertRight(guiWidget, cmSource);
   panel.insertTabAfter(guiWidget, cmSource);
+  panel.insertTabBefore(threeWidget, cmSource);
 
   panel.attach(document.body);
 
@@ -101,8 +107,14 @@ function main(): void {
   window.widgets = {
     g1: g1,
     cmSource: cmSource,
-    guiWidget: guiWidget
+    guiWidget: guiWidget,
+    threeWidget: threeWidget
   }
+  function render() {
+    threeWidget.update();
+    requestAnimationFrame(render);
+  }
+  render();
 }
 
 window.onload = main;
