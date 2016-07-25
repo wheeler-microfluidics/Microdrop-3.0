@@ -33,7 +33,7 @@ SCHEMA.DataFrame = _.merge(_.cloneDeep(SCHEMA.Definitions),
                 "required": ["columns"]}]});
 
 
-function data_frame_to_js(df_i) {
+function data_frame_to_js(df_i: DataFrame) {
     /*
      * Args
      * ----
@@ -127,11 +127,11 @@ var maxStringLength = _fp.flow(_fp.map(_fp.flow(_.toString, _.size)), _.max);
 
 export class DataFrame {
   public _df: any;
-  public index: any[];
+  public index: Number[];
   public index_name: any;
   public size: any;
   public columnPositions: any;
-  public columns: any[];
+  public columns: string[];
   public values: any[];
 
   constructor(df_i) {
@@ -161,8 +161,8 @@ export class DataFrame {
     return new DataFrame(df_i);
   }
 
-  iloc(positions: Number[]) {
-    if (!_.isArray(positions)) { positions = [positions]; }
+  iloc(positions: (Number[]|Number)) {
+    if (!_.isArray(positions)) { positions = [positions as Number]; }
     var df_i = _.clone(this);
     df_i.index = _fp.map(function (i : Number) { return _.nth(df_i.index, i); })(positions);
     if (!(_.every(_fp.map(_.negate(_.isUndefined))(df_i.index)))) {
