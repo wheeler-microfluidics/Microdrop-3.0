@@ -99,7 +99,7 @@ export class DatGuiWidget extends Widget {
  */
 export class ThreeRendererWidget extends Widget {
   constructor(rendererSettings: THREE.WebGLRendererParameters = {},
-              cameraSettings: PerspectiveCameraParameters = {}) {
+              cameraSettings: PerspectiveCameraParameters = {}){
     super();
     this.addClass('ThreeRendererWidget');
     this._scene = new THREE.Scene();

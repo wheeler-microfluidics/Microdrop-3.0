@@ -31,8 +31,6 @@ import { FooBar } from './content';
 import './index.css';
 
 console.log("lodash/fp version:", _fp.VERSION);
-
-
 /**
  * Create a placeholder content widget.
  */
@@ -64,11 +62,10 @@ declare var window: MyWindow;
  * The main application entry point.
  */
 function main(): void {
-  var g1 = createContent('Green');
-
   var panel = new DockPanel();
   panel.id = 'main';
 
+  var g1 = createContent('Green');
   var cmSource = new CodeMirrorWidget({
     mode: 'text/typescript',
     lineNumbers: true,
@@ -77,24 +74,87 @@ function main(): void {
   });
   cmSource.loadTarget('./entry.ts');
   cmSource.title.text = 'Source';
+  cmSource.title.closable = true;
 
-  var threeWidget = new ThreePlaneTransformWidget();
+  var threeWidget = new ThreePlaneTransformWidget({}, {}, 1);
   threeWidget.title.text = 'Three renderer';
   threeWidget.title.closable = true;
+
+  var threeWidget2 = new ThreePlaneTransformWidget({}, {}, 2);
+  threeWidget2.title.text = 'Three renderer';
+  threeWidget2.title.closable = true;
 
   var guiWidget = new DatGuiWidget({autoPlace: false});
   var options = {state: true};
   guiWidget.gui.add(threeWidget.orbit, "enableRotate");
   guiWidget.title.text = 'UI options';
   guiWidget.title.closable = true;
+  
+  var localSchema = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "root",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "readonly": false
+      },
+      "number": {
+        "type": "integer",
+        "maximum": 100
+      },
+      "reapplied": {
+        "type": "boolean"
+      },
+      "participants": {
+        "type": "string",
+        "readonly": true
+      }
+    },
+    "required": ["number"]
+  };
+
+  var localdata = [{
+      "name": "Joe",
+      "reapplied": false,
+      "number": 1,
+      "participants": "US"
+    }, {
+      "name": "Bob",
+      "number": 2,
+      "reapplied": true,
+      "participants": "CND"
+    }, {
+      "name": "McDunk",
+      "number": 3,
+      "reapplied": true,
+      "participants": "LUX"
+  }];
+
+  var schemaGridWidget = new Widget();
+  var jqgrid = document.createElement("div");
+  var schemaGrid = document.createElement("TABLE");
+  var pager = document.createElement("div");
+  jqgrid.id = 'jqgrid';
+  schemaGrid.id = 'grad';
+  pager.id = 'pager';
+  jqgrid.appendChild(schemaGrid);
+  jqgrid.appendChild(pager);
+
+  schemaGridWidget.node.appendChild(jqgrid);
+  schemaGridWidget.title.text = 'grid';
+  schemaGridWidget.title.closable = true;
 
   panel.insertLeft(cmSource);
   panel.insertRight(g1, cmSource);
-  panel.insertRight(guiWidget, cmSource);
+  //panel.insertRight(guiWidget, cmSource);
   panel.insertTabAfter(guiWidget, cmSource);
   panel.insertTabBefore(threeWidget, cmSource);
+  panel.insertTabAfter(threeWidget2, threeWidget);
+  panel.insertTabAfter(schemaGridWidget, g1)
 
   panel.attach(document.body);
+  $("#grad").schemaGrid(localSchema, localdata);
 
   window.onresize = () => { panel.update() };
 
@@ -108,10 +168,13 @@ function main(): void {
     g1: g1,
     cmSource: cmSource,
     guiWidget: guiWidget,
-    threeWidget: threeWidget
+    threeWidget: threeWidget,
+    threeWidget2: threeWidget2,
+    schemaGridWidget: schemaGridWidget
   }
   function render() {
     threeWidget.update();
+    threeWidget2.update();
     requestAnimationFrame(render);
   }
   render();
