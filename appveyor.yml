@@ -5,7 +5,8 @@ environment:
       MINICONDA: C:\Miniconda
       PYTHON_ARCH: "32"
 
-version: 'not set_appveyor-{build}'
+version: 'not set_4724dd082699975e028a8ac40e51488841862368
+_appveyor-{build}'
 
 init:
   - "ECHO %PYTHON_VERSION% %MINICONDA%"
